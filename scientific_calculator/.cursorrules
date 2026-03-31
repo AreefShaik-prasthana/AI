@@ -1,34 +1,47 @@
-# 🚀 Golden Rules for Premium Flutter Development
+# 🏛 Master Guide for Architectural Excellence & Clean Code
 
-Follow these universal standards to build high-performance, visually stunning, and perfectly automated cross-platform applications.
+Follow these strict rules to ensure every project is scalable, maintainable, and built with a premium touch.
 
-## 🎨 UI/UX Excellence
-- **Rich Aesthetics**: Avoid system defaults. Use curated HSL color palettes, gradients, and subtle shadows to create a premium feel.
-- **Dynamic Layouts**: 
-    - Always account for **Safe Areas** (notches, home indicators).
-    - Use responsive widgets (`FittedBox`, `Expanded`, `Flexible`) to ensure consistency across iOS, Android, and Web.
-- **Typography**: Leverage **Google Fonts** to establish a distinct brand identity.
-- **Motion**: Implement micro-animations (`hover` effects, `fade-ins`, `page-transitions`) to make the interface feel alive.
+## 🏗 MVVM Architecture (with Riverpod)
+Maintain a strict separation of concerns across these layers:
+- **View (`ConsumerWidget`)**: 
+    - Purpose: UI presentation and user interaction.
+    - Rule: NO business logic. Only build the UI based on the `state` and delegate actions to the `ViewModel`.
+- **ViewModel (`Notifier/AsyncNotifier`)**: 
+    - Purpose: State management and business workflows.
+    - Rule: Do NOT import `dart:ui` or `package:flutter`. Keep logic testable and decoupled from the UI framework.
+- **Model (Data Class)**: 
+    - Purpose: Immutable data representation.
+    - Rule: Use `copyWith` for state transitions. Keep models clean and focused on data.
+- **Service/Repository**: 
+    - Purpose: Atomic business logic, API calls, or local storage.
+    - Rule: Should be stateless and injected into ViewModels via Providers.
 
-## 🤖 Reliability & Automation First
-- **Explicit Semantics**: Every interactive element MUST have a unique `identifier` set via the `Semantics` widget.
-    - NEVER rely on fragile text-matching or positional selectors for automation.
-    - Convention: `btn_<purpose>`, `display_<purpose>`, `input_<purpose>`.
-- **Maestro Testing Standards**: 
-    - Use separate projects/repositories for automation suites to maintain a clean codebase.
-    - In YAML flows, always use the explicit `{id: "..."}` syntax for the highest reliability.
-    - Document every Maestro "Case" with clear titles and comments.
+## 🧼 Clear Code & SOLID Principles
+- **S.O.L.I.D**: Prioritize Single Responsibility. One function = One task.
+- **D.R.Y**: Abstract repeated logic into `core/utils` or shared services.
+- **Naming Conventions**: 
+    - Use meaningful, searchable names.
+    - Booleans: Prefix with `is`, `has`, `should`, or `can` (e.g., `isInverse`, `hasComputed`).
+    - Functions: Start with a verb (e.g., `calculateResult`, `_appendFunction`).
+- **Function Size**: Limit functions to <20 lines where possible. If it's longer, extract sub-methods.
+- **Error Handling**: Use `try-catch` blocks at the service/logic level and provide user-friendly feedback in the UI.
 
-## 🏗 Modular Architecture
-- **State Management**: Use robust, reactive solutions like **Riverpod** or **Bloc**.
-- **Directory Structure**: Organize by **Features**, not just by layer:
-    - `lib/core/` (Theme, Constants, Utils)
-    - `lib/features/<name>/` (UI, ViewModel, State)
-    - `lib/services/` (Data providers, API logic)
-    - `lib/widgets/` (Reusable UI components)
-- **Design Tokens**: Standardize colors, spacing, and text styles in a central `AppTheme` or `AppColors` file.
+## 🎨 Premium UI/UX Standards
+- **Golden Padding**: 
+    - Keypads/Buttons must have **16px bottom padding** PLUS the device's **Safe Area**.
+    - Maintain consistent spacing tokens across the app (8px, 16px, 24px).
+- **Obsidian Theme**: Default to deep blacks (`#000000`), high-contrast accents, and vibrant primary colors.
+- **Typography**: Always use **Google Fonts**; never rely on browser or system defaults.
+- **Visual Feedback**: Every interaction must have a visual state (hover, tap-ripple, or active-chip indicators).
 
-## 📱 Cross-Platform Identity
-- **Unified App ID**: Maintain a consistent `applicationId` (Android) and `bundleIdentifier` (iOS) (e.g., `com.company.appCamelCase`).
-- **Native Sync**: Ensure `package` declarations in Kotlin/Swift files match the project's namespace precisely to prevent launch crashes.
-- **Asset Management**: Optimize images and use SVGs where possible for crisp rendering on high-DPI displays.
+## 🤖 Reliability & Automation
+- **Semantic Mapping**: Wrap every interactive widget in `Semantics(identifier: "...")`.
+    - Identifier Pattern: `btn_<function>`, `display_<type>`, `indicator_<name>`.
+- **Selector Precision**: In **Maestro** or **Integration Tests**, always use explicit `{id: "..."}` targeting to ignore visual text changes.
+- **Documentation**: Comment "Cases" in automation scripts to explain the *intent* of the test.
+
+## 📱 Platform Integrity
+- **Unified Identity**: Synchronize `applicationId` (Android) and `bundleID` (iOS) camelCase naming.
+- **Native Alignment**: Kotlin/Swift package names must match the project namespace exactly to prevent startup crashes.
+- **Clean Builds**: Always use `flutter clean` before a version bump or production build.
