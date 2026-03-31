@@ -1,0 +1,47 @@
+# 🏛 Master Guide for Architectural Excellence & Clean Code
+
+Follow these strict rules to ensure every project is scalable, maintainable, and built with a premium touch.
+
+## 🏗 MVVM Architecture (with Riverpod)
+Maintain a strict separation of concerns across these layers:
+- **View (`ConsumerWidget`)**: 
+    - Purpose: UI presentation and user interaction.
+    - Rule: NO business logic. Only build the UI based on the `state` and delegate actions to the `ViewModel`.
+- **ViewModel (`Notifier/AsyncNotifier`)**: 
+    - Purpose: State management and business workflows.
+    - Rule: Do NOT import `dart:ui` or `package:flutter`. Keep logic testable and decoupled from the UI framework.
+- **Model (Data Class)**: 
+    - Purpose: Immutable data representation.
+    - Rule: Use `copyWith` for state transitions. Keep models clean and focused on data.
+- **Service/Repository**: 
+    - Purpose: Atomic business logic, API calls, or local storage.
+    - Rule: Should be stateless and injected into ViewModels via Providers.
+
+## 🧼 Clear Code & SOLID Principles
+- **S.O.L.I.D**: Prioritize Single Responsibility. One function = One task.
+- **D.R.Y**: Abstract repeated logic into `core/utils` or shared services.
+- **Naming Conventions**: 
+    - Use meaningful, searchable names.
+    - Booleans: Prefix with `is`, `has`, `should`, or `can` (e.g., `isInverse`, `hasComputed`).
+    - Functions: Start with a verb (e.g., `calculateResult`, `_appendFunction`).
+- **Function Size**: Limit functions to <20 lines where possible. If it's longer, extract sub-methods.
+- **Error Handling**: Use `try-catch` blocks at the service/logic level and provide user-friendly feedback in the UI.
+
+## 🎨 Premium UI/UX Standards
+- **Golden Padding**: 
+    - Keypads/Buttons must have **16px bottom padding** PLUS the device's **Safe Area**.
+    - Maintain consistent spacing tokens across the app (8px, 16px, 24px).
+- **Obsidian Theme**: Default to deep blacks (`#000000`), high-contrast accents, and vibrant primary colors.
+- **Typography**: Always use **Google Fonts**; never rely on browser or system defaults.
+- **Visual Feedback**: Every interaction must have a visual state (hover, tap-ripple, or active-chip indicators).
+
+## 🤖 Reliability & Automation
+- **Semantic Mapping**: Wrap every interactive widget in `Semantics(identifier: "...")`.
+    - Identifier Pattern: `btn_<function>`, `display_<type>`, `indicator_<name>`.
+- **Selector Precision**: In **Maestro** or **Integration Tests**, always use explicit `{id: "..."}` targeting to ignore visual text changes.
+- **Documentation**: Comment "Cases" in automation scripts to explain the *intent* of the test.
+
+## 📱 Platform Integrity
+- **Unified Identity**: Synchronize `applicationId` (Android) and `bundleID` (iOS) camelCase naming.
+- **Native Alignment**: Kotlin/Swift package names must match the project namespace exactly to prevent startup crashes.
+- **Clean Builds**: Always use `flutter clean` before a version bump or production build.
