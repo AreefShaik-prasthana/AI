@@ -18,13 +18,16 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
+          cache: true
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: scientific_calculator
 
       - name: Run tests
         run: flutter test
+        working-directory: scientific_calculator
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
