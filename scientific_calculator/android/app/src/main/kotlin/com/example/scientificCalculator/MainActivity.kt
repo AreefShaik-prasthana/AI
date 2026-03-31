@@ -1,4 +1,4 @@
-package com.example.scientific_calculator
+package com.example.scientificCalculator
 
 import io.flutter.embedding.android.FlutterActivity
 
