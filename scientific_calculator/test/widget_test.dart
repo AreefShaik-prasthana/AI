@@ -93,15 +93,22 @@ void main() {
     // Verify it's back in display
     expect(find.text('5+5'), findsAtLeastNWidgets(1));
     
-    // Close history
+    // Open history again to test clear history functionality
+    await tester.tap(find.byIcon(Icons.history));
+    await tester.pumpAndSettle();
+
+    // Tap "Clear" button in history modal
     await tester.tap(find.text('Clear'));
     await tester.pumpAndSettle();
+    expect(find.text('History'), findsNothing);
 
     // Open empty history
     await tester.tap(find.byIcon(Icons.history));
     await tester.pumpAndSettle();
     expect(find.text('No history yet'), findsOneWidget);
-    await tester.tapAt(const Offset(10, 10)); // Tap outside to close
+    
+    // Tap outside to close (offset 10,10 is usually safe for safety)
+    await tester.tapAt(const Offset(10, 10)); 
     await tester.pumpAndSettle();
   });
 
@@ -113,7 +120,8 @@ void main() {
     await tester.pump();
     expect(find.text('89'), findsAtLeastNWidgets(1));
 
-    await tester.tap(find.text('⌫'));
+    // Use byIcon for backspace as it's rendered as an Icon
+    await tester.tap(find.byIcon(Icons.backspace));
     await tester.pump();
     expect(find.text('8'), findsAtLeastNWidgets(2)); // Display and button
 
