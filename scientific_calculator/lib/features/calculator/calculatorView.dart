@@ -347,46 +347,48 @@ class CalculatorView extends ConsumerWidget {
     ];
 
     return Column(
-      children: buttons.map((row) {
-        return Expanded(
-          child: Row(
-            children: row.map((b) {
-              final isZero = b == '0';
-              final isEquals = b == AppConstants.keyEquals;
-              final isOperator = _isPrimaryOperator(b);
-              final isSpecial = b == AppConstants.keyClear || b is IconData || b == '%';
-
-              return Expanded(
-                flex: isZero ? 2 : 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: CalculatorButton(
-                    label: b is IconData ? Icon(b, color: colorScheme.onSurface, size: 24) : b,
-                    onTap: () => viewModel.onButtonPressed(b is IconData ? AppConstants.keyBackspace : b as String),
-                    backgroundColor: isEquals 
-                        ? AppColors.primary 
-                        : isOperator 
-                            ? AppColors.secondary 
-                            : isSpecial 
-                                ? colorScheme.surfaceContainerHigh 
-                                : colorScheme.surfaceContainerHighest,
-                    textColor: isEquals 
-                        ? AppColors.onPrimary 
-                        : isOperator 
-                            ? AppColors.onSecondary 
-                            : b == AppConstants.keyClear 
-                                ? AppColors.error 
-                                : colorScheme.onSurface,
-                    isBold: true,
-                    fontSize: isEquals ? 32 : 24,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        );
-      }).toList(),
+      children: buttons.map((row) => Expanded(
+        child: Row(
+          children: row.map((b) => _buildKeypadButton(b, viewModel, colorScheme)).toList(),
+        ),
+      )).toList(),
     );
+  }
+
+  Widget _buildKeypadButton(dynamic b, CalculatorViewModel viewModel, ColorScheme colorScheme) {
+    final isZero = b == '0';
+    final isEquals = b == AppConstants.keyEquals;
+
+    return Expanded(
+      flex: isZero ? 2 : 1,
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: CalculatorButton(
+          label: b is IconData ? Icon(b, color: colorScheme.onSurface, size: 24) : b,
+          onTap: () => viewModel.onButtonPressed(b is IconData ? AppConstants.keyBackspace : b as String),
+          backgroundColor: _getButtonBackgroundColor(b, colorScheme),
+          textColor: _getButtonTextColor(b, colorScheme),
+          isBold: true,
+          fontSize: isEquals ? 32 : 24,
+        ),
+      ),
+    );
+  }
+
+  Color _getButtonBackgroundColor(dynamic b, ColorScheme colorScheme) {
+    if (b == AppConstants.keyEquals) return AppColors.primary;
+    if (_isPrimaryOperator(b)) return AppColors.secondary;
+    if (b == AppConstants.keyClear || b is IconData || b == '%') {
+      return colorScheme.surfaceContainerHigh;
+    }
+    return colorScheme.surfaceContainerHighest;
+  }
+
+  Color _getButtonTextColor(dynamic b, ColorScheme colorScheme) {
+    if (b == AppConstants.keyEquals) return AppColors.onPrimary;
+    if (_isPrimaryOperator(b)) return AppColors.onSecondary;
+    if (b == AppConstants.keyClear) return AppColors.error;
+    return colorScheme.onSurface;
   }
 
   bool _isPrimaryOperator(dynamic b) {
