@@ -32,12 +32,11 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
+          projectBaseDir: scientific_calculator
           args: >
             -Dsonar.projectKey=AreefShaik-prasthana_AI
             -Dsonar.organization=areefshaik-prasthana
-            -Dsonar.sources=scientific_calculator/lib
-            -Dsonar.tests=scientific_calculator/test
-            -Dsonar.javascript.lcov.reportPaths=scientific_calculator/coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
