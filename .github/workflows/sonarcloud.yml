@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           channel: 'stable'
           cache: true
@@ -30,7 +30,7 @@ jobs:
         working-directory: scientific_calculator
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@a59600a94b5952c286950302b13919e34e7f369f # v5.0.0
         with:
           projectBaseDir: scientific_calculator
           args: >
