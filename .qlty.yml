@@ -1,0 +1,31 @@
+config_version: "0"
+
+# Exclude patterns for Flutter projects
+exclude_patterns:
+  - "**/node_modules/**"
+  - "**/vendor/**"
+  - "**/build/**"
+  - "**/.dart_tool/**"
+  - "**/.fvm/**"
+  - "**/ios/**"
+  - "**/android/**"
+  - "**/*.g.dart"
+  - "**/*.freezed.dart"
+
+# Identify test files
+test_patterns:
+  - "**/test/**"
+  - "**/*_test.dart"
+
+# Qlty analysis plugins
+plugins:
+  - name: dart-analyzer
+    enabled: true
+    # Point to the analysis options if they are not in the root
+    config_file: "scientific_calculator/analysis_options.yaml"
+  - name: prettier
+    enabled: true
+
+# Quality and Maintainability settings
+maintainability:
+  threshold: 80.0
