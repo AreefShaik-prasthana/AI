@@ -25,6 +25,8 @@ plugins:
     config_file: "scientific_calculator/analysis_options.yaml"
   - name: prettier
     enabled: true
+  - name: zizmor
+    enabled: true
 
 # Quality and Maintainability settings
 maintainability:
