@@ -31,3 +31,10 @@ plugins:
 # Quality and Maintainability settings
 maintainability:
   threshold: 80.0
+
+# Coverage configuration
+coverage:
+  enabled: true
+  reports:
+    - path: "scientific_calculator/coverage/lcov.info"
+      type: "lcov"
