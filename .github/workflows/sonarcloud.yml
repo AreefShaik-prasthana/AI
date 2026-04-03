@@ -38,7 +38,6 @@ jobs:
         uses: qltysh/qlty-action/coverage@main
         with:
           files: scientific_calculator/coverage/lcov.info
-          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@299e4b793aaa83bf2aba7c9c14bedbb485688ec4 # v7.1.1
